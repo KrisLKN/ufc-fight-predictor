@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: ml_fight_dataset
+    description: "Final ML-ready dataset: one row per fight, with both fighters' features side by side and the target (a_won). Built via a self-join on the unique fight_id."
+    columns:
+      - name: fight_id
+        description: "Unique identifier of the fight (primary key, extracted from the source URL)."
+        tests:
+          - not_null
+          - unique
+
+      - name: fighter_a
+        description: "First fighter (alphabetically first of the pair)."
+        tests:
+          - not_null
+
+      - name: fighter_b
+        description: "Second fighter."
+        tests:
+          - not_null
+
+      - name: a_won
+        description: "Target: 1 if fighter_a won, 0 otherwise."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]

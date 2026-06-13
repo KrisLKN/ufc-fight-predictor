@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_event_details
+    description: "Cleaned event details, one row per event, with a real date type."
+    columns:
+      - name: event_name
+        description: "Name of the UFC event (join key to fights)."
+        tests:
+          - not_null
+          - unique
+
+      - name: event_date
+        description: "Date of the event, parsed from text into a real timestamp."
+        tests:
+          - not_null
+
+      - name: location
+        description: "City/country where the event took place."

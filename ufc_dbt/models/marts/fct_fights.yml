@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: fct_fights
+    description: "One row per fight, enriched with the event date (fights joined to events)."
+    columns:
+      - name: event_name
+        description: "Name of the UFC event."
+        tests:
+          - not_null
+
+      - name: event_date
+        description: "Date of the fight (from the joined event)."
+        tests:
+          - not_null
+
+      - name: fighter_1
+        description: "First fighter."
+        tests:
+          - not_null
+
+      - name: fighter_2
+        description: "Second fighter."
+        tests:
+          - not_null
+
+      - name: winner
+        description: "Winning fighter (NULL for draws / no contests)."

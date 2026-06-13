@@ -1,1 +1,4 @@
 duckdb 
+notebook
+scikit-learn
+matplotlib

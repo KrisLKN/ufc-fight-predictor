@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: int_fighter_fights
+    description: "One row per fighter per fight (unpivoted), to track each fighter's history over time."
+    columns:
+      - name: fighter
+        description: "The fighter this row is about."
+        tests:
+          - not_null
+
+      - name: opponent
+        description: "The opponent in this fight."
+        tests:
+          - not_null
+
+      - name: did_win
+        description: "1 if the fighter won this fight, 0 otherwise."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+
+      - name: event_date
+        description: "Date of the event this fight belongs to."
+        tests:
+          - not_null
+
+      - name: weight_class
+        description: "Weight class of the fight."
+
+      - name: method
+        description: "How the fight ended."

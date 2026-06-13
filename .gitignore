@@ -4,3 +4,10 @@ __pycache__/
 .ipynb_checkpoints/
 *.duckdb
 *.duckdb.wal
+# dbt
+target/
+dbt_packages/
+logs/
+
+# notebooks parasites
+Untitled.ipynb

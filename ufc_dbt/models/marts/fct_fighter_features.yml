@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: fct_fighter_features
+    description: "One row per fighter per fight, with leak-free predictive features plus fighter profile (reach, stance, age)."
+    columns:
+      - name: fighter
+        description: "The fighter this row is about."
+        tests:
+          - not_null
+      - name: event_date
+        description: "Date of the fight."
+        tests:
+          - not_null
+      - name: did_win
+        description: "1 if the fighter won, 0 otherwise."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+      - name: fights_before
+        description: "Number of fights before this one."
+        tests:
+          - not_null
+      - name: wins_before
+        description: "Cumulative wins before this fight."
+      - name: won_previous_fight
+        description: "1 if won previous fight, 0 if lost, NULL if first."
+      - name: days_since_last_fight
+        description: "Days since previous fight (NULL if first)."
+      - name: age_at_fight
+        description: "Fighter age in years on fight day (NULL if unknown)."
+      - name: reach
+        description: "Reach in inches (NULL if unknown)."
+      - name: stance
+        description: "Stance: Orthodox, Southpaw, Switch (NULL if unknown)."
+      - name: win_rate
+        description: "Wins over fights before this fight (0 for debut)."
+        tests:
+          - not_null

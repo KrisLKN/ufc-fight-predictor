@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: ufc
+    schema: main
+    tables:
+      - name: raw_fight_results
+      - name: raw_fight_stats
+      - name: raw_event_details
+      - name: raw_fighter_tott

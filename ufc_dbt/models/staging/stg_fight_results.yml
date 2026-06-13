@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_fight_results
+    description: "Cleaned fight results, one row per fight, with a readable winner."
+    columns:
+      - name: event_name
+        description: "Name of the UFC event (join key to events)."
+        tests:
+          - not_null
+
+      - name: bout
+        description: "Original 'Fighter A vs. Fighter B' label."
+        tests:
+          - not_null
+
+      - name: fighter_1
+        description: "First fighter, extracted from the bout."
+        tests:
+          - not_null
+
+      - name: fighter_2
+        description: "Second fighter, extracted from the bout."
+        tests:
+          - not_null
+
+      - name: outcome
+        description: "Raw outcome code: 'W/L' (fighter_1 won) or 'L/W' (fighter_2 won)."
+
+      - name: winner
+        description: "Name of the winning fighter (NULL for draws / no contests)."
+
+      - name: weight_class
+        description: "Weight class of the bout."
+
+      - name: method
+        description: "How the fight ended (KO/TKO, Submission, Decision...)."
+
+      - name: round
+        description: "Round in which the fight ended."
+        tests:
+          - not_null
