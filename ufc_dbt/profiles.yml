@@ -1,0 +1,9 @@
+# Profil dbt portable (utilise en CI via --profiles-dir ufc_dbt).
+# Le chemin de la base est lu depuis UFC_DUCKDB ; defaut relatif a ce dossier.
+ufc_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('UFC_DUCKDB', '../data/ufc.duckdb') }}"
+      threads: 1

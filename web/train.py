@@ -14,6 +14,7 @@ Run from the project root:
 """
 
 import json
+import os
 import pickle
 from pathlib import Path
 
@@ -24,7 +25,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(__file__).resolve().parent.parent
-DB_PATH = ROOT / "data" / "ufc.duckdb"
+DB_PATH = Path(os.environ.get("UFC_DUCKDB", ROOT / "data" / "ufc.duckdb"))
 OUT_DIR = Path(__file__).resolve().parent / "artifacts"
 
 FEATURE_COLS = [

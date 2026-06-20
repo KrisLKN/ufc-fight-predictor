@@ -1,0 +1,7 @@
+# Dependances du pipeline de mise a jour (CI GitHub Actions).
+# scikit-learn epingle pour que le modele entraine se charge dans l'app web
+# (web/requirements.txt epingle la meme version).
+duckdb
+dbt-duckdb
+pandas
+scikit-learn==1.9.0

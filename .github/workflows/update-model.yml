@@ -1,0 +1,49 @@
+name: Mise a jour automatique du modele UFC
+
+# Quand : chaque lundi 06:00 UTC (apres les events du week-end) + bouton manuel.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # autorise le commit des artefacts regeneres
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      UFC_DUCKDB: ${{ github.workspace }}/data/ufc.duckdb
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances du pipeline
+        run: pip install -r requirements-pipeline.txt
+
+      - name: 1) Charger les donnees brutes (CSV publics -> DuckDB)
+        run: python load_raw.py
+
+      - name: 2) Construire les modeles dbt (+ 29 tests qualite)
+        run: dbt build --project-dir ufc_dbt --profiles-dir ufc_dbt
+
+      - name: 3) Reentrainer le modele et regenerer les artefacts
+        run: python web/train.py
+
+      - name: 4) Commiter les artefacts si le modele a change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add web/artifacts/fighters.json web/artifacts/metrics.json web/artifacts/model.pkl web/artifacts/scaler.pkl
+          if git diff --staged --quiet; then
+            echo "Aucun changement : le modele est deja a jour."
+          else
+            git commit -m "Mise a jour auto du modele UFC ($(date -u +%Y-%m-%d))"
+            git push
+            echo "Artefacts mis a jour et pousses -> Render redeploie automatiquement."
+          fi
