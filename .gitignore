@@ -11,3 +11,7 @@ logs/
 
 # notebooks parasites
 Untitled.ipynb
+
+# doc interne (gardee en local, pas publiee)
+web/BUILD_RECREATE.md
+web/__pycache__/
