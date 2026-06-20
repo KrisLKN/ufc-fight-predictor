@@ -15,3 +15,5 @@ Untitled.ipynb
 # doc interne (gardee en local, pas publiee)
 web/BUILD_RECREATE.md
 web/__pycache__/
+# script local de rafraichissement (chemins machine)
+refresh-demo.ps1
